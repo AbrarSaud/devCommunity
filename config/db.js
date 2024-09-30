@@ -4,7 +4,13 @@ const db = config.get("mondoURI");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(db);
+    // محاولة الاتصال بقاعدة البيانات مع الخيارات المناسبة
+    await mongoose.connect(db, {
+      useNewUrlParser: true,
+      // useCreateIndex: true,
+      useNewUrlParser: true,  // حل مشكلة التحليل الجديد
+      useUnifiedTopology: true, // استخدام الطوبولوجيا الموحدة
+    });
     console.log("MongoDB Connected ...");
   } catch (err) {
     console.error(`error: ${err.message}`);
